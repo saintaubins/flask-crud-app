@@ -35,12 +35,8 @@ class Data(db.Model):
         self.email = email
         self.phone = phone
  
- 
- 
- 
- 
 #This is the index route where we are going to
-#query on all our employee data
+#query on all our employee data.
 @app.route('/')
 def Index():
     all_data = Data.query.all()

@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
  
  
 app = Flask(__name__)
-
+app.secret_key = "Secret Key"
  
 ENV = 'prod'
 

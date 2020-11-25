@@ -1,11 +1,45 @@
-{% extends 'base.html' %}
-{% block title %} Flask CRUD {% endblock %}
-{% block body %}
+{% extends 'bootstrap/base.html' %}
 
-<div class="jumbotron p-3">
+{% block title %} 
+Flask CRUD API
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='header.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<!-- <div class="jumbotron p-3">
     <div class="well text-center">
         <h1>Python Flask full CRUD Web App Dev </h1>
     </div>
-</div>
+</div> -->
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Flask CRUD API</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/crud">CRUD</a></li>
+          <li><a href="#">Profile</a></li>
+          <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+        </ul>
+        <form class="navbar-form navbar-right">
+          <input type="text" class="form-control" placeholder="Search...">
+        </form>
+      </div>
+    </div>
+  </nav>
 
 {% endblock %}

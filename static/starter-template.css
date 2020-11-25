@@ -1,0 +1,23 @@
+body {
+    padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+.container {
+  border-radius: 5px;
+}
+.flaskimg{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  height: 300px;
+  border-radius: 8px;
+  box-shadow: 10px 10px 5px grey;
+}
+
+.flaskimg:hover {
+  box-shadow: 15px 15px 10px rgba(0, 140, 186, 0.5);
+}

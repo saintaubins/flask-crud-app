@@ -18,7 +18,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login' 
 
-ENV = 'prod'
+ENV = 'dev'
 
 if ENV == 'dev':
     app.debug = True
@@ -53,7 +53,21 @@ class RegisterForm(FlaskForm):
 
  
 #Creating model table for our CRUD database
-class Data(db.Model):
+class EmployeeData(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(100))
+    email = db.Column(db.String(100))
+    phone = db.Column(db.String(100))
+ 
+ 
+    def __init__(self, name, email, phone):
+ 
+        self.name = name
+        self.email = email
+        self.phone = phone
+
+#Creating model table for our CRUD database
+class CustomerData(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(100))
     email = db.Column(db.String(100))
@@ -77,9 +91,10 @@ def Index():
 @app.route('/crud')
 @login_required
 def crud():
-    all_data = Data.query.all()
+    all_employees = EmployeeData.query.all()
+    all_customers = CustomerData.query.all()
  
-    return render_template("crud.html", employees = all_data)
+    return render_template("crud.html", employees = all_employees, customers = all_customers, name=current_user.username)
  
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -106,8 +121,9 @@ def signup():
         new_user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-
-        return '<h1>New user has been created!</h1>'
+        flash('New user has been created!')
+        return redirect(url_for('login'))
+        #return '<h1>New user has been created!</h1>'
         #return '<h1>' + form.username.data + ' ' + form.email.data + ' ' + form.password.data + '</h1>'
 
     return render_template('signup.html', form=form)
@@ -123,9 +139,9 @@ def logout():
     logout_user()
     return redirect(url_for('Index'))
  
-#this route is for inserting data to mysql database via html forms
-@app.route('/insert', methods = ['POST'])
-def insert():
+#this route is for inserting data to postgres database via html forms
+@app.route('/e_insert', methods = ['POST'])
+def einsert():
  
     if request.method == 'POST':
  
@@ -134,28 +150,63 @@ def insert():
         phone = request.form['phone']
  
  
-        my_data = Data(name, email, phone)
+        my_data = EmployeeData(name, email, phone)
         db.session.add(my_data)
         db.session.commit()
  
-        flash("Employee Inserted Successfully")
+        flash("Employee Inserted Successfully", "category1")
+ 
+        return redirect(url_for('crud'))
+
+#this route is for inserting data to postgres database via html forms
+@app.route('/c_insert', methods = ['POST'])
+def cinsert():
+ 
+    if request.method == 'POST':
+ 
+        name = request.form['name']
+        email = request.form['email']
+        phone = request.form['phone']
+ 
+ 
+        my_data = CustomerData(name, email, phone)
+        db.session.add(my_data)
+        db.session.commit()
+ 
+        flash("Customer Inserted Successfully", "category2")
  
         return redirect(url_for('crud'))
  
  
 #this is our update route where we are going to update our employee
-@app.route('/update', methods = ['GET', 'POST'])
-def update():
+@app.route('/e_update', methods = ['GET', 'POST'])
+def eupdate():
  
     if request.method == 'POST':
-        my_data = Data.query.get(request.form.get('id'))
+        my_data = EmployeeData.query.get(request.form.get('id'))
  
         my_data.name = request.form['name']
         my_data.email = request.form['email']
         my_data.phone = request.form['phone']
  
         db.session.commit()
-        flash("Employee Updated Successfully")
+        flash("Employee Updated Successfully", "category1")
+ 
+        return redirect(url_for('crud'))
+
+#this is our update route where we are going to update our customer
+@app.route('/c_update', methods = ['GET', 'POST'])
+def cupdate():
+ 
+    if request.method == 'POST':
+        my_data = CustomerData.query.get(request.form.get('id'))
+ 
+        my_data.name = request.form['name']
+        my_data.email = request.form['email']
+        my_data.phone = request.form['phone']
+ 
+        db.session.commit()
+        flash("Customer Updated Successfully", "category2")
  
         return redirect(url_for('crud'))
  
@@ -163,12 +214,22 @@ def update():
  
  
 #This route is for deleting our employee
-@app.route('/delete/<id>/', methods = ['GET', 'POST'])
-def delete(id):
-    my_data = Data.query.get(id)
+@app.route('/e_delete/<id>/', methods = ['GET', 'POST'])
+def edelete(id):
+    my_data = EmployeeData.query.get(id)
     db.session.delete(my_data)
     db.session.commit()
-    flash("Employee Deleted Successfully")
+    flash("Employee Deleted Successfully", "category1")
+ 
+    return redirect(url_for('crud'))
+
+#This route is for deleting our customer
+@app.route('/c_delete/<id>/', methods = ['GET', 'POST'])
+def cdelete(id):
+    my_data = CustomerData.query.get(id)
+    db.session.delete(my_data)
+    db.session.commit()
+    flash("Customer Deleted Successfully", "category2")
  
     return redirect(url_for('crud'))
  

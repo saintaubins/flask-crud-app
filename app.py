@@ -24,8 +24,8 @@ if ENV == 'dev':
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:sem@localhost/flask_crud'
 else:
-    app.debug = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://nezjlwmuxjnxur:dbafdfed3981d3ebc03da17edefbf7d6d95c0419b85adf34b9bce624f0a4a024@ec2-23-23-88-216.compute-1.amazonaws.com:5432/d4dqfjelualbaq'
+    app.debug = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = ''
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
  

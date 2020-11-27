@@ -18,9 +18,9 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login' 
 
-ENV = 'prod'
+ENV = 'dev'
 
-if ENV == 'dev':
+if ENV == 'prod':
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:sem@localhost/flask_crud'
 else:

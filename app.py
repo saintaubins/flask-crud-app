@@ -86,7 +86,7 @@ class CustomerData(db.Model):
 def Index():
     #all_data = Data.query.all()
  
-    return render_template("index.html")#, employees = all_data)
+    return render_template("index.html")
 
 @app.route('/crud')
 @login_required

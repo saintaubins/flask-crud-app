@@ -12,7 +12,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
  
 app = Flask(__name__)
 app.secret_key = "Secret Key"
-bootstrap = Bootstrap(app)
+Bootstrap(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)

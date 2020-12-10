@@ -1,21 +1,14 @@
-{% extends 'bootstrap/base.html' %}
+{% extends 'base.html' %}
 
-{% block title %} 
-Flask CRUD API
-{% endblock %}
+{% block title %}Flask CRUD API{% endblock %}
 
 {% block styles %}
 {{super()}}
 <link rel="stylesheet" href="{{url_for('.static', filename='header.css')}}">
 {% endblock %}
 
-{% block content %}
+{% block body %}
 
-<!-- <div class="jumbotron p-3">
-    <div class="well text-center">
-        <h1>Python Flask full CRUD Web App Dev </h1>
-    </div>
-</div> -->
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">

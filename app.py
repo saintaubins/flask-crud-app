@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-#from flask_bootstrap import Bootstrap
-from flask_wtf import FlaskForm 
+from flask_bootstrap import Bootstrap
+from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 from flask_sqlalchemy  import SQLAlchemy
@@ -12,15 +12,15 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
  
 app = Flask(__name__)
 app.secret_key = "Secret Key"
-#Bootstrap(app)
+Bootstrap(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login' 
 
-ENV = 'prod'
+ENV = 'dev'
 
-if ENV == 'dev':
+if ENV == 'prod':
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:sem@localhost/flask_crud'
 else:
